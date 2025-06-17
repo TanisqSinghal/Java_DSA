@@ -8,9 +8,6 @@ public class inverted_rotated_half_pyramid {
             for(int k = 1; k <= i; k++) {
                 System.out.print("*");
             }
-            for(int j = 1; j <= n-i; j++) {
-               System.out.print(" ");
-            }
             System.out.println();
         }
     }
