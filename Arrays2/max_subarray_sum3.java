@@ -27,7 +27,7 @@ public class max_subarray_sum3 {
     }
 
     public static void main(String args[]) {
-        int arr[] = { -2, -3, 5, -9, -8 };
+        int arr[] = { -2, -3, -1, -9, -8 };
         System.out.println(kadans(arr));
     }
 }
