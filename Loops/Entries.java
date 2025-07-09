@@ -12,5 +12,6 @@ public class Entries {
             }
             System.out.println(x);
         }
+        sc.close();
     }
 }

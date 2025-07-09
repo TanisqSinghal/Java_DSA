@@ -11,6 +11,7 @@ public class sumOfFirstN {
             sum = sum + start;
             start++;
         }
+        sc.close();
         System.out.println(sum);
     }
 }
