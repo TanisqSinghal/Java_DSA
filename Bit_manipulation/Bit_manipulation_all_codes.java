@@ -29,11 +29,16 @@ public class Bit_manipulation_all_codes {
         int bitMask = newBit << i;
         return n | bitMask;
     }
+    public static int clearLastIthbits(int n, int i) {
+        int bitMask = -1 << i;
+        return n & bitMask;
+    }
     public static void main(String args[]) {
         // oddOreven(6);
         // System.out.println(getIthbit(15, 2));
         // System.out.println(setIthbit(15, 4));
         // System.out.println(clearIthbit(10, 1));
-        System.out.println(updateIthbit(10, 2, 1));
+        // System.out.println(updateIthbit(10, 2, 1));
+        System.out.println(clearLastIthbits(15, 2));
     }
 }
