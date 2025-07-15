@@ -7,10 +7,10 @@ public class substring {
             return;
         }
 
-        //yes choice
+        //yes choice //TC = O(n * 2^n)
         subStr(str, ans+str.charAt(i), i+1);
 
-        //no choice
+        //no choice 
         subStr(str, ans, i+1);
     }
 
