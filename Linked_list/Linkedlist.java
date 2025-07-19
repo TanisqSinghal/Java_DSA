@@ -95,16 +95,120 @@ public class Linkedlist {
         System.out.println("null");
     }
 
+    public int itrSearch(int target) {
+        Node temp = Head;
+        int i = 0;
+        while(temp != null) {
+            if(temp.data == target) {
+                return i;
+            }
+            temp = temp.next;
+            i++;
+        }
+        return -1;
+    }
+
+    public int helper(Node temp, int key) {
+        if(temp == null) {
+            return -1;
+        }
+        if(temp.data == key) {
+            return 0;
+        }
+        int idx = helper(temp.next, key);
+        if(idx == -1) {
+            return -1;
+        }
+        return idx+1;
+    }
+
+    public int recSearch(int key) {
+        return helper(Head, key);
+    }
+
+    public void reverse() {
+        Node prev = null;
+        Node curr = Tail = Head;
+        Node next;
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Head = prev;
+    }
+
+    public void delete(int n) { // position should be start with 1 
+        if(n == 1) {
+            Head = Head.next;
+            return;
+        }
+        Node prev = Head;
+        for(int i=0; i<n-2; i++) {
+            prev = prev.next;
+        }
+        prev.next = prev.next.next;
+        size--;
+        return;
+    }
+
+    public boolean isPalindrome() {
+        Node mid = Head;
+        for(int i=0; i<(size/2); i++) {
+            mid = mid.next;
+        }
+        Node prev = null;
+        Node curr = mid;
+        Node next;
+        while(curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node secondHalf = prev;
+        Node firstHalf = Head;
+        boolean isPalin = true;
+        Node temp = secondHalf;
+
+        while (temp != null) {
+            if (firstHalf.data != temp.data) {
+                isPalin = false;
+                break;
+            }
+            firstHalf = firstHalf.next;
+            temp = temp.next;
+        }
+        curr = prev;
+        prev = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return isPalin;
+    }
+
     public static void main(String args[]) {
         Linkedlist ll = new Linkedlist();
         ll.addFirst(1);
         ll.addLast(2);
-        ll.addLast(3);
-        ll.addLast(5);
-        ll.add(3, 4);
-        ll.removeFirst();
-        ll.removeLast();;
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(1);
+        // ll.add(3, 4);
+        // ll.removeFirst();
+        // ll.removeLast();
         ll.print();
-        System.out.println(ll.size);
+        // System.out.println(ll.recSearch(3));
+        // ll.reverse();
+        // ll.print();
+        // ll.delete(0);
+        // ll.print();
+        System.out.println(ll.isPalindrome());
+        // System.out.println(ll.size);
+        ll.print();
     }
 }
