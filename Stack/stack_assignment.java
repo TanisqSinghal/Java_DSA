@@ -81,6 +81,38 @@ public class stack_assignment {
 
     }
 
+    public static String decodeString(String str) {
+        Stack<Integer> numStack = new Stack<>();
+        Stack<String> charStack = new Stack<>();
+        String currString = "";
+        int currNum = 0;
+
+        for(char ch : str.toCharArray()) {
+            if(Character.isDigit(ch)) {
+                currNum = currNum * 10 + (ch - '0');
+            }
+            else if(ch == '[') {
+                numStack.push(currNum);
+                charStack.push(currString);
+                currNum = 0;
+                currString = "";
+            }
+            else if(ch == ']') {
+                StringBuilder temp = new StringBuilder(charStack.pop());
+                int num = numStack.pop();
+
+                for(int i=0; i<num; i++) {
+                    temp.append(currString);
+                }
+                currString = temp.toString();
+            } 
+            else {
+                currString = currString + ch;
+            }
+        }
+        return currString;
+    }
+
     public static void main(String[] args) {
         // Linked_List ll = new Linked_List();
         // ll.addLast('A');
@@ -91,6 +123,8 @@ public class stack_assignment {
         // ll.print();
         // System.out.println(ll.isPalin(ll));
         String path = "/a/./b/../../c";
+        String str1 = "3[b2[v]]";
         System.out.println(simplifyPath(path));
+        System.out.println(decodeString(str1));
     }
 }
