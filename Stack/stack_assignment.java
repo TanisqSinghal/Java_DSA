@@ -113,6 +113,28 @@ public class stack_assignment {
         return currString;
     }
 
+    public static int trappingRainWater(int[] arr) { // didn't used stack as we have solved in O(1) SC in O(N) TC
+        int leftMax = arr[0];
+        int rightMax = arr[arr.length-1];
+        int low = 1;
+        int high = arr.length-2;
+        int trappedwater = 0;
+
+        while(low <= high) {
+            if(leftMax < rightMax) {
+                leftMax = Math.max(leftMax, arr[low]);
+                trappedwater += leftMax-arr[low];
+                low++;
+            } 
+            else {
+                rightMax = Math.max(rightMax, arr[high]);
+                trappedwater += rightMax - arr[high];
+                high--;
+            }
+        }
+        return trappedwater;
+    }
+
     public static void main(String[] args) {
         // Linked_List ll = new Linked_List();
         // ll.addLast('A');
@@ -122,9 +144,11 @@ public class stack_assignment {
         // ll.addLast('B');
         // ll.print();
         // System.out.println(ll.isPalin(ll));
-        String path = "/a/./b/../../c";
-        String str1 = "3[b2[v]]";
-        System.out.println(simplifyPath(path));
-        System.out.println(decodeString(str1));
+        // String path = "/a/./b/../../c";
+        // String str1 = "2[a3[dd]c]";
+        // System.out.println(simplifyPath(path));
+        // System.out.println(decodeString(str1));
+        int[] arr = {7, 0, 4, 2, 5, 0, 6, 4, 0, 5};
+        System.out.println(trappingRainWater(arr));
     }
 }
