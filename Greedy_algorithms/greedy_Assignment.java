@@ -3,7 +3,7 @@ import java.util.Comparator;
 
 public class greedy_Assignment {
 
-    // Question 1
+    // Question 1 , TC - O(N), SC - O(1)
     public static int maxBalStrPart(String str) {
         int balance = 0;
         int count = 0;
@@ -21,7 +21,7 @@ public class greedy_Assignment {
         return count;
     }
 
-    // Question 2
+    // Question 2 , TC - O(1), SC - O(1)
     public static int kthLargestOdd(int L, int R, int k) {
         if (L % 2 == 0) {
             L -= 1; // smallest odd number
@@ -44,7 +44,7 @@ public class greedy_Assignment {
         return (R - 2 * (k - 1));
     }
 
-    // Question 3
+    // Question 3 , TC - O(N), SC - O(N)
     public static String smallestLexoStringOfLenN(int n, int k) {
         char result[] = new char[n];
 
@@ -65,7 +65,7 @@ public class greedy_Assignment {
         return new String(result);
     }
 
-    // Question 4
+    // Question 4, TC - O(N) , SC - O(2N)
     public static int bestTimetoBuyAndSellStocks(int price[]) {
         int sortedPrice[][] = new int[price.length][2];
 
@@ -87,7 +87,7 @@ public class greedy_Assignment {
         }
         return maxProfit;
     }
-    //Question 4 - approach 2(more optimal)
+    //Question 4 - approach 2(more optimal) , TC - O(N), SC - O(1)
     public static int bestTimetoBuyAndSellStocks2(int price[]) {
         int minPrice = Integer.MAX_VALUE;
         int maxProfit = 0;
@@ -101,6 +101,7 @@ public class greedy_Assignment {
         return maxProfit;
     }
 
+    //Question 5, TC - O(n * log(high-low)), SC - O(1)
     public static int calcK(int arr[], int mid) {
         int myK = 1; 
         long valCount = 0; 
