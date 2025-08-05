@@ -101,12 +101,52 @@ public class greedy_Assignment {
         return maxProfit;
     }
 
+    public static int calcK(int arr[], int mid) {
+        int myK = 1; 
+        long valCount = 0; 
+
+        for(int i=0; i<arr.length; i++) {
+            if(valCount + arr[i] <= mid) {
+                valCount += arr[i];
+            } else {
+                myK++;
+                valCount = arr[i];
+            }
+        }
+
+        return myK;
+    }
+
+    public static int splitTheArrayIntoK(int arr[], int k) {
+        int low = Integer.MIN_VALUE, high = 0;
+        for(int i=0; i<arr.length; i++) {
+            low = Math.max(low, arr[i]);
+            high += arr[i];
+        }
+
+        while(low <= high) {
+            int mid = (low + high) / 2;
+            int myK = calcK(arr, mid);
+
+            if(myK > k) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+
+        return low;
+    }
+
     public static void main(String[] args) {
         // String str = "LRRRRLLRLLRL";
         // System.out.println(maxBalStrPart(str));
         // System.out.println(kthLargestOdd(-3, 3, 1));
         // System.out.println(smallestLexoStringOfLenN(5, 42));
-        int prices[] = { 2, 1, 4 };
-        System.out.println(bestTimetoBuyAndSellStocks2(prices));
+        // int prices[] = { 2, 1, 4 };
+        // System.out.println(bestTimetoBuyAndSellStocks2(prices));
+        int arr[] = {7, 2, 5, 10, 8};
+        int k = 2;
+        System.out.println(splitTheArrayIntoK(arr, k));
     }
 }
