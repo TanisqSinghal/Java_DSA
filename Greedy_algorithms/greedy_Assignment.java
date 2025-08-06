@@ -87,6 +87,8 @@ public class greedy_Assignment {
         }
         return maxProfit;
     }
+
+    
     //Question 4 - approach 2(more optimal) , TC - O(N), SC - O(1)
     public static int bestTimetoBuyAndSellStocks2(int price[]) {
         int minPrice = Integer.MAX_VALUE;
