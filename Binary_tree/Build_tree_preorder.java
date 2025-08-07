@@ -112,6 +112,49 @@ public class Build_tree_preorder {
 
             return leftSum + rightSum + root.data;
         }
+
+        public static int diameter1(node root) {
+            if(root == null) {
+                return 0;
+            }
+
+            int leftDiam = diameter1(root.left);
+            int lh = height(root.left);
+            int rightDiam = diameter1(root.right);
+            int rh = height(root.right);
+
+            int selfDiam = lh + rh + 1;
+
+            return Math.max(Math.max(rightDiam, leftDiam), selfDiam);
+        }
+
+        public static class Info {
+            int diam;
+            int height;
+
+            public Info(int diam, int height) {
+                this.diam = diam;
+                this.height = height;
+            }
+        }
+
+        public static Info diameter2(node root) {
+            if(root == null) {
+                return new Info(0, 0);
+            }
+
+            Info leftInfo = diameter2(root.left);
+            Info rightInfo = diameter2(root.right);
+
+            int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.height + rightInfo.height + 1);
+            int height = Math.max(leftInfo.height, rightInfo.height) + 1;
+
+            return new Info(diam, height);
+        }
+
+        public static int diameter(node root) {
+            return diameter2(root).diam;
+        }
     }
 
     
@@ -126,6 +169,8 @@ public class Build_tree_preorder {
         // tree.levelOrder(root);
         // System.out.println(tree.height(root));
         // System.out.println(tree.countNodes(root));
-        System.out.println(tree.sumOfNodes(root));
+        // System.out.println(tree.sumOfNodes(root));
+        // System.out.println(tree.diameter1(root));
+        System.out.println(tree.diameter(root));
     }
 }
