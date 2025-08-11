@@ -341,6 +341,30 @@ public class Build_tree_preorder {
 
         return dist1 + dist2;
     }
+
+    public static int kthAncestor(node root,int n, int k) {
+        if(root == null) {
+            return -1;
+        }
+
+        if(root.data == n) {
+            return 0;
+        }
+
+        int leftDist = kthAncestor(root.left, n, k);
+        int rightDist = kthAncestor(root.right, n, k);
+
+        if(leftDist == -1 && rightDist == -1) {
+            return -1;
+        }
+
+        int max = Math.max(leftDist, rightDist);
+        if(max+1 == k) {
+            return root.data;
+        }
+
+        return max+1;
+    }
     
 
     public static void main(String[] args) {
@@ -377,6 +401,7 @@ public class Build_tree_preorder {
         // topView(root);
         // kthLevel(root, 3, 1);
         // System.out.println(lca2(root, 5, 7).data);
-        System.out.println(minDistBetNodes(root, 5, 7));
+        // System.out.println(minDistBetNodes(root, 5, 7));
+        System.out.println(kthAncestor(root, 5, 2));
     }
 }
