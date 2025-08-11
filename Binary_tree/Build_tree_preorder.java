@@ -249,6 +249,98 @@ public class Build_tree_preorder {
         kthLevel(root.left, k, level + 1);
         kthLevel(root.right, k, level + 1);
     }
+
+    public static boolean getPath(node root, int n, ArrayList<node> path) {
+
+        if(root == null) {
+            return false;
+        }
+
+        path.add(root);
+
+        if(root.data == n) {
+            return true;
+        }
+
+        boolean foundLeft = getPath(root.left, n, path);
+        boolean foundRight = getPath(root.right, n, path);
+
+        if(foundLeft || foundRight) {
+            return true;
+        }
+
+        path.remove(path.size()-1);
+        return false;
+    }
+
+    public static node lca(node root, int n1, int n2) {
+        ArrayList<node> path1 = new ArrayList<>();
+        ArrayList<node> path2 = new ArrayList<>();
+
+        getPath(root, n1, path1);
+        getPath(root, n2, path2);
+        
+        int i = 0;
+        for(; i<path1.size() && i<path2.size(); i++) {
+            if(path1.get(i) != path2.get(i)) {
+                break;
+            }
+        }
+        return path1.get(i-1);
+    }
+
+    public static node lca2(node root, int n1, int n2) {
+        if(root == null) {
+            return null;
+        }
+
+        if(root.data == n1 || root.data == n2) {
+            return root;
+        }
+
+        node leftLca = lca2(root.left, n1, n2);
+        node rightLca = lca2(root.right, n1, n2);
+
+        if(leftLca == null) {
+            return rightLca;
+        }
+        if(rightLca == null) {
+            return leftLca;
+        }
+
+        return root;
+    }
+
+    public static int lcaDist(node root, int n) {
+        if(root == null) {
+            return -1;
+        }
+
+        if(root.data == n) {
+            return 0;
+        }
+
+        int leftDist = lcaDist(root.left, n);
+        int rightDist = lcaDist(root.right, n);
+
+        if(leftDist == -1 && rightDist == -1) {
+            return -1;
+        }
+        else if(leftDist == -1) {
+            return rightDist + 1;
+        } 
+        else {
+            return leftDist + 1;
+        }
+    }
+
+    public static int minDistBetNodes(node root, int n1, int n2) {
+        node lca = lca(root, n1, n2);
+        int dist1 = lcaDist(lca, n1);
+        int dist2 = lcaDist(lca, n2);
+
+        return dist1 + dist2;
+    }
     
 
     public static void main(String[] args) {
@@ -264,6 +356,11 @@ public class Build_tree_preorder {
         // System.out.println(tree.sumOfNodes(root));
         // System.out.println(tree.diameter1(root));
         // System.out.println(tree.diameter(root));
+            //         1
+            //       /  \
+            //      2    3
+            //    / \    / \
+            //   4   5  6   7
         node root = new node(1);
         root.left = new node(2);
         root.right = new node(3);
@@ -278,6 +375,8 @@ public class Build_tree_preorder {
 
         // System.out.println(isSubTree(root, subroot));
         // topView(root);
-        kthLevel(root, 3, 1);
+        // kthLevel(root, 3, 1);
+        // System.out.println(lca2(root, 5, 7).data);
+        System.out.println(minDistBetNodes(root, 5, 7));
     }
 }
