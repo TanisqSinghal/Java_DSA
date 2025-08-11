@@ -157,12 +157,42 @@ public class Build_tree_preorder {
         }
     }
 
+    public static boolean isIdentical(node Node, node subroot) {
+        if(Node == null && subroot == null) {
+            return true;
+        } else if(Node == null || subroot == null || Node.data != subroot.data) {
+            return false;
+        }
+        
+        if(!isIdentical(Node.left, subroot.left)) {
+            return false;
+        } 
+        if(!isIdentical(Node.right, subroot.right)) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isSubTree(node root, node subroot) {
+        if(root == null) {
+            return false;
+        }
+
+        if(root.data == subroot.data) {
+            if(isIdentical(root, subroot)) {
+                return true;
+            }
+        }
+
+        return isSubTree(root.left, subroot) || isSubTree(root.right, subroot);
+    }
+
     
 
     public static void main(String[] args) {
-        int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
-        BinaryTree tree = new BinaryTree();
-        node root = tree.buildTree(nodes);
+        // int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+        // BinaryTree tree = new BinaryTree();
+        // node root = tree.buildTree(nodes);
         // tree.preOrder(root);
         // tree.inOrder(root);
         // tree.postOrder(root);
@@ -171,6 +201,19 @@ public class Build_tree_preorder {
         // System.out.println(tree.countNodes(root));
         // System.out.println(tree.sumOfNodes(root));
         // System.out.println(tree.diameter1(root));
-        System.out.println(tree.diameter(root));
+        // System.out.println(tree.diameter(root));
+        node root = new node(1);
+        root.left = new node(2);
+        root.right = new node(3);
+        root.left.left = new node(4);
+        root.left.right = new node(5);
+        root.right.left = new node(6);
+        root.right.right = new node(7);
+
+        node subroot = new node(2);
+        subroot.left = new node(4);
+        subroot.right = new node(5);
+
+        System.out.println(isSubTree(root, subroot));
     }
 }
