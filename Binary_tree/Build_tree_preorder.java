@@ -187,6 +187,68 @@ public class Build_tree_preorder {
         return isSubTree(root.left, subroot) || isSubTree(root.right, subroot);
     }
 
+    public static class Info {
+        node Node;
+        int hd;
+
+        public Info(node Node, int hd) {
+            this.Node = Node;
+            this.hd = hd;
+        }
+    }
+
+    public static void topView(node root) {
+        Queue<Info> q = new LinkedList<>();
+        HashMap<Integer, node> hMap = new HashMap<>();
+
+        q.add(new Info(root, 0));
+        q.add(null);
+
+        int min = 0, max = 0;
+
+        while(!q.isEmpty()) {
+            Info curr = q.remove();
+            if(curr == null) {
+                if(q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {
+                if(!hMap.containsKey(curr.hd)) {
+                    hMap.put(curr.hd, curr.Node);
+                }
+
+                if(curr.Node.left != null) {
+                    q.add(new Info(curr.Node.left, curr.hd-1));
+                    min = Math.min(min, curr.hd-1);
+                }
+
+                if(curr.Node.right != null) {
+                    q.add(new Info(curr.Node.right, curr.hd+1));
+                    max = Math.max(max, curr.hd+1);
+                }
+            }
+        }
+
+        for(int i=min ; i<=max; i++) {
+            System.out.print(hMap.get(i).data+" ");
+        }
+
+        System.out.println();
+    }
+
+    public static void kthLevel(node root, int k, int level) {
+        if(root == null) {
+            return;
+        }
+        if(level == k) {
+            System.out.print(root.data+" ");
+            return;
+        }
+        kthLevel(root.left, k, level + 1);
+        kthLevel(root.right, k, level + 1);
+    }
     
 
     public static void main(String[] args) {
@@ -210,10 +272,12 @@ public class Build_tree_preorder {
         root.right.left = new node(6);
         root.right.right = new node(7);
 
-        node subroot = new node(2);
-        subroot.left = new node(4);
-        subroot.right = new node(5);
+        // node subroot = new node(2);
+        // subroot.left = new node(4);
+        // subroot.right = new node(5);
 
-        System.out.println(isSubTree(root, subroot));
+        // System.out.println(isSubTree(root, subroot));
+        // topView(root);
+        kthLevel(root, 3, 1);
     }
 }
