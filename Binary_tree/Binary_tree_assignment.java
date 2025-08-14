@@ -86,7 +86,8 @@ public class Binary_tree_assignment {
         }
         return root;
     }
-    //Q4 , TC - O(n) , SC - O(n)
+    
+    //Q4 , TC - O(n) , SC - O(n) , using hashing + seriealization of a tree (concept)
     public static String serialize(node root, ArrayList<node> res, HashMap<String, Integer> map) {
         if(root == null) {
             return "N";
@@ -113,6 +114,35 @@ public class Binary_tree_assignment {
         return res;
     }
 
+    //Q5, TC - O(n), SC - O(n)
+    static int maxSum = Integer.MIN_VALUE;
+    public static int maxSumFromAnyPathInTreeUtil(node root) {
+        if(root == null) {
+            return 0;
+        }
+        int leftSum = maxSumFromAnyPathInTreeUtil(root.left);
+        int rightSum = maxSumFromAnyPathInTreeUtil(root.right);
+
+        //case 1
+        int belowSum = leftSum + rightSum + root.data;
+
+        //case 2
+        int eitherSum = Math.max(leftSum, rightSum) + root.data;
+
+        //case3
+        int rootSum = root.data;
+
+        maxSum = Math.max(maxSum, Math.max(belowSum, Math.max(eitherSum, rootSum)));
+
+        //most importtant part -> what to return ?
+        return Math.max(eitherSum, rootSum);
+    }
+    
+    public static int maxSumFromAnyPathInTree(node root) {
+        maxSumFromAnyPathInTreeUtil(root);
+        return maxSum;
+    }
+
     public static void main(String[] args) {
         // node root = new node(1);
         // root.left = new node(2);
@@ -126,16 +156,15 @@ public class Binary_tree_assignment {
         // // System.out.println(isUnivalued(root, root.data));
         // root = deleteLeaf(root, 3);
         // preOrder(root);
-        node root = new node(1);
-        root.left = new node(2);
-        root.right = new node(3);
-        root.left.left = new node(4);
-        root.right.left = new node(2);
-        root.right.left.left = new node(4);
-        root.right.right = new node(4);
-        ArrayList<node> res = findDuplicateSubtree(root);
-        for(int i=0; i<res.size(); i++) {
-            preOrder(res.get(i));
-        }
+        node root = new node(-10);
+        root.left = new node(9);
+        root.right = new node(20);
+        root.right.left = new node(15);
+        root.right.right = new node(7);
+        // ArrayList<node> res = findDuplicateSubtree(root);
+        // for(int i=0; i<res.size(); i++) {
+        //     preOrder(res.get(i));
+        // }
+        System.out.println(maxSumFromAnyPathInTree(root));
     }
 }
