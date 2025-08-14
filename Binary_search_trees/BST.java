@@ -143,19 +143,45 @@ public class BST {
         return validBST2(root, min, max);
     }
 
+    public static node mirrorTree(node root) {
+        if(root == null) {
+            return null;
+        }
+        
+        node leftMirror = mirrorTree(root.left);
+        node rightMirror = mirrorTree(root.right);
+
+        root.left = rightMirror;
+        root.right = leftMirror;
+
+        return root;
+    }
+
+    public static void preOrder(node root) {
+        if(root == null) {
+            return;
+        }
+        System.out.print(root.data+" ");
+        preOrder(root.left);
+        preOrder(root.right);
+    }
+
     public static void main(String[] args) {
         int nodes[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
         node root = null;
         for(int i=0; i<nodes.length; i++) {
             root = insert(nodes[i], root);
         }
-        // inOrder(root);
+        preOrder(root);
+        System.out.println();
         // // System.out.println(search(root, 4));
         // delete(root, 4);
         // System.out.println();
         // inOrder(root);
         // printInRange(root, 3, 11);
         // printPathToLeaf(root, new ArrayList<>());
-        System.out.println(validBST(root));
+        // System.out.println(validBST(root));
+        mirrorTree(root);
+        preOrder(root);
     }
 }
