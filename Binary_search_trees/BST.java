@@ -123,7 +123,7 @@ public class BST {
         System.out.println("null");
     }
 
-    public static boolean validBST2(node root, node min, node max) {
+    public static boolean validBSTutil(node root, node min, node max) {
         if(root == null) {
             return true;
         }
@@ -134,13 +134,13 @@ public class BST {
             return false;
         }
 
-        return validBST2(root.left, min, root) && validBST2(root.right, root, max);
+        return validBSTutil(root.left, min, root) && validBSTutil(root.right, root, max);
     }
 
     public static boolean validBST(node root) {
         node min = null;
         node max = null;
-        return validBST2(root, min, max);
+        return validBSTutil(root, min, max);
     }
 
     public static node mirrorTree(node root) {
@@ -166,22 +166,80 @@ public class BST {
         preOrder(root.right);
     }
 
-    public static void main(String[] args) {
-        int nodes[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
-        node root = null;
-        for(int i=0; i<nodes.length; i++) {
-            root = insert(nodes[i], root);
+    public static node createTreeWithSortedArrayutil(ArrayList<Integer> nodes,int start, int end) {
+
+        if(start > end) {
+            return null;
         }
+
+        int mid = start + (end - start) / 2;
+
+        node root = new node(nodes.get(mid));
+
+        root.left = createTreeWithSortedArrayutil(nodes, start, mid-1);
+        root.right = createTreeWithSortedArrayutil(nodes, mid+1, end);
+
+        return root;
+    }
+
+    public static node createTreeWithSortedArray(ArrayList<Integer> nodes) {
+        int start = 0, end = nodes.size() - 1;
+        return createTreeWithSortedArrayutil(nodes, start, end);
+    }
+
+    public static void getInOrder(node root, ArrayList<Integer> arr) {
+        if(root == null) {
+            return;
+        }
+
+        getInOrder(root.left, arr);
+        arr.add(root.data);
+        getInOrder(root.right, arr);
+    }
+
+    public static node converBstToBalancesBst(node root) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        getInOrder(root, arr);
+        return createTreeWithSortedArray(arr);
+    }
+
+    public static void main(String[] args) {
+        // int nodes[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
+        // node root = null;
+        // for(int i=0; i<nodes.length; i++) {
+        //     root = insert(nodes[i], root);
+        // }
+        // preOrder(root);
+        // System.out.println();
+        // // // System.out.println(search(root, 4));
+        // // delete(root, 4);
+        // // System.out.println();
+        // // inOrder(root);
+        // // printInRange(root, 3, 11);
+        // // printPathToLeaf(root, new ArrayList<>());
+        // // System.out.println(validBST(root));
+        // mirrorTree(root);
+        // preOrder(root);
+        // ArrayList<Integer> nodes = new ArrayList<>();
+        // nodes.add(3);
+        // nodes.add(5);
+        // nodes.add(6);
+        // nodes.add(8);
+        // nodes.add(10);
+        // nodes.add(11);
+        // nodes.add(12);
+        // node root = createTreeWithSortedArray(nodes);
+        // preOrder(root);
+        node root = new node(8);
+        root.left = new node(6);
+        root.left.left = new node(5);
+        root.left.left.left = new node(3);
+        root.right = new node(10);
+        root.right.right = new node(11);
+        root.right.right.right = new node(12);
         preOrder(root);
         System.out.println();
-        // // System.out.println(search(root, 4));
-        // delete(root, 4);
-        // System.out.println();
-        // inOrder(root);
-        // printInRange(root, 3, 11);
-        // printPathToLeaf(root, new ArrayList<>());
-        // System.out.println(validBST(root));
-        mirrorTree(root);
+        root = converBstToBalancesBst(root);
         preOrder(root);
     }
 }
