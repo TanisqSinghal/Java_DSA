@@ -203,6 +203,87 @@ public class BST {
         return createTreeWithSortedArray(arr);
     }
 
+    public static class Info {
+        boolean isBST;
+        int size;
+        int min;
+        int max;
+
+        public Info(boolean isBST, int size, int min, int max) {
+            this.isBST = isBST;
+            this.size = size;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+
+    public static int maxSizeBST = 0;
+    public static Info largestBSTfromBT(node root) {
+        if(root == null) {
+            return new Info(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+
+        Info leftInfo = largestBSTfromBT(root.left);
+        Info rightInfo = largestBSTfromBT(root.right);
+        int size = leftInfo.size + rightInfo.size + 1;
+        int min = Math.min(root.data, Math.min(leftInfo.min, rightInfo.min));
+        int max = Math.max(root.data, Math.max(leftInfo.max, rightInfo.max));
+
+        if(root.data <= leftInfo.max || root.data >= rightInfo.min) {
+            return new Info(false, size, min, max);
+        }
+
+        if(leftInfo.isBST && rightInfo.isBST) {
+            maxSizeBST = Math.max(maxSizeBST, size);
+            return new Info(true, size, min, max);
+        }
+
+        return new Info(false, size, min, max);
+
+    }
+
+
+    public static int sum(node root) {
+        if(root == null) {
+            return 0;
+        }
+        int leftSum = sum(root.left);
+        int rightSum = sum(root.right);
+
+        return leftSum + rightSum + root.data;
+
+    }
+    
+    public static node maxSumNodeBST = null;
+    public static int maxSumBST = 0;
+
+    public static Info largestBSTSumfromBT(node root) {
+        if(root == null) {
+            return new Info(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+
+        Info leftInfo = largestBSTSumfromBT(root.left);
+        Info rightInfo = largestBSTSumfromBT(root.right);
+        int size = leftInfo.size + rightInfo.size + 1;
+        int min = Math.min(root.data, Math.min(leftInfo.min, rightInfo.min));
+        int max = Math.max(root.data, Math.max(leftInfo.max, rightInfo.max));
+
+        if(root.data <= leftInfo.max || root.data >= rightInfo.min) {
+            return new Info(false, size, min, max);
+        }
+
+        if(leftInfo.isBST && rightInfo.isBST) {
+            maxSumNodeBST = root;
+            maxSumBST = Math.max(maxSumBST, sum(maxSumNodeBST));
+            return new Info(true, size, min, max);
+        }
+
+        return new Info(false, size, min, max);
+
+    }
+
+
     public static void main(String[] args) {
         // int nodes[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
         // node root = null;
@@ -230,16 +311,28 @@ public class BST {
         // nodes.add(12);
         // node root = createTreeWithSortedArray(nodes);
         // preOrder(root);
-        node root = new node(8);
-        root.left = new node(6);
+        // node root = new node(8);
+        // root.left = new node(6);
+        // root.left.left = new node(5);
+        // root.left.left.left = new node(3);
+        // root.right = new node(10);
+        // root.right.right = new node(11);
+        // root.right.right.right = new node(12);
+        // preOrder(root);
+        // System.out.println();
+        // root = converBstToBalancesBst(root);
+        // preOrder(root);
+        node root = new node(50);
+        root.left = new node(30);
+        root.right = new node(60);
         root.left.left = new node(5);
-        root.left.left.left = new node(3);
-        root.right = new node(10);
-        root.right.right = new node(11);
-        root.right.right.right = new node(12);
-        preOrder(root);
-        System.out.println();
-        root = converBstToBalancesBst(root);
-        preOrder(root);
+        root.left.right = new node(20);
+        root.right.left = new node(45);
+        root.right.right = new node(70);
+        root.right.right.left = new node(65);
+        root.right.right.right = new node(80);
+        // largestBSTfromBT(root);
+        largestBSTSumfromBT(root);
+        System.out.println(maxSumBST);
     }
 }
