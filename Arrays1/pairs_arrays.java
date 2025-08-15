@@ -1,4 +1,4 @@
-public class subarrys {
+public class pairs_arrays {
 
     public static void subarrays(int arr[]) {
         for(int i=0; i<arr.length; i++) {

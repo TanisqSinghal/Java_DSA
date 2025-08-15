@@ -14,7 +14,6 @@ public class print_subarrays {
                 }
                 System.out.println();
             }
-            System.out.println();
         }
     }
 
