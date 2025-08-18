@@ -69,7 +69,7 @@ public class BST {
             if(root.left == null) {
                 return root.right;
             } else if(root.right == null){
-                return root.right;
+                return root.left;
             }
             //case 3 - complete node - inorder successor case
             node IS = findInOrderSuccessor(root.right);
