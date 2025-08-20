@@ -37,6 +37,7 @@ public class BST_assignment {
         inOrder(root.right);
     }
 
+    //Q1 , TC - O(H) , SC - O(H)
     public static int rangeSumOfBST(node root,int k1, int k2, int sum) {
         if(root == null) {
             return 0;
@@ -56,6 +57,7 @@ public class BST_assignment {
         return sum;
     }
 
+    //Q2 , TC - O(H), SC - O(H)
     public static int closestElementInBST(node root, int key, int closest) {
         if(root == null) {
             return closest;
@@ -77,6 +79,7 @@ public class BST_assignment {
         return closest;
     }
 
+    //Q3 , TC - O(H + K) , SC - O(H)
     static int count = 0;
     static int result = -1;
     public static int kthSmallestElementInBST(node root, int k) {
@@ -101,6 +104,8 @@ public class BST_assignment {
 
         inOrderTraveral(root.right, k);
     }
+
+    //Q4, TC - O(N), SC - O(N)
     public static void twoSumInorder(ArrayList<Integer> list1, node root1) {
         if(root1 == null) {
             return;
@@ -142,6 +147,53 @@ public class BST_assignment {
         }
     }
 
+    //Q5 , TC - O(N), SC - O(N)
+    public static class Info {
+        boolean isBST;
+        int min, max;
+
+        public Info(boolean isBST, int min, int max) {
+            this.isBST = isBST;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    public static int sum(node root) {
+        if(root == null) {
+            return 0;
+        }
+        int leftSum = sum(root.left);
+        int rightSum = sum(root.right);
+
+        return leftSum + rightSum + root.data;
+
+    }
+
+    static int maxSumOfLargestBST = 0;
+    public static Info maxSumOfBSTinBT(node root) {
+        if(root == null) {
+            return new Info(true, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+
+        Info leftInfo = maxSumOfBSTinBT(root.left);
+        Info rightInfo = maxSumOfBSTinBT(root.right);
+
+        int min = Math.min(root.data, Math.min(leftInfo.min, rightInfo.min));
+        int max = Math.max(root.data, Math.max(leftInfo.max, rightInfo.max));
+
+        if(root.data <= leftInfo.max && root.data >= rightInfo.min) {
+            return new Info(false, min, max);
+        }
+
+        if(leftInfo.isBST && rightInfo.isBST) {
+            maxSumOfLargestBST = Math.max(maxSumOfLargestBST, sum(root));
+            return new Info(true, min, max);
+        }
+
+        return new Info(false, min, max);
+    }
+
     public static void main(String[] args) {
         // int nodes[] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
         // node root = null;
@@ -161,6 +213,8 @@ public class BST_assignment {
         for(int i=0; i<nodes2.length; i++) {
             root2 = insert(nodes2[i], root2);
         }
-        twoSumBSTs(root1, root2, 16);
+        // twoSumBSTs(root1, root2, 16);
+        maxSumOfBSTinBT(root1);
+        System.out.println(maxSumOfLargestBST);
     }
 }

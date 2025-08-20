@@ -255,7 +255,6 @@ public class BST {
 
     }
     
-    public static node maxSumNodeBST = null;
     public static int maxSumBST = 0;
 
     public static Info largestBSTSumfromBT(node root) {
@@ -274,8 +273,7 @@ public class BST {
         }
 
         if(leftInfo.isBST && rightInfo.isBST) {
-            maxSumNodeBST = root;
-            maxSumBST = Math.max(maxSumBST, sum(maxSumNodeBST));
+            maxSumBST = Math.max(maxSumBST, sum(root));
             return new Info(true, size, min, max);
         }
 
