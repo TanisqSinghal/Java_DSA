@@ -5,7 +5,7 @@ public class Heap_Sort {
         int right = 2 * i + 2;
         int maxIdx = i;
 
-        if (left < n && arr[left] > arr[maxIdx]) {
+        if (left < n && arr[left] > arr[maxIdx]) { // ascending heapify , for descending just replace > with <
             maxIdx = left;
         }
         if (right < n && arr[right] > arr[maxIdx]) {
