@@ -94,7 +94,7 @@ public class Queue_assignment {
             //add elements in deque
             dq.addLast(i);
 
-            //
+            //let the size reach > k 
             if(i >= k-1) {
                 result.add(arr[dq.getFirst()]);
             }
