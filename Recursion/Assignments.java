@@ -74,14 +74,14 @@ public class Assignments {
         // int arr[] = {3, 2, 4, 5, 6, 2, 7, 2, 2};
         // int num = 2019;
         // StringBuilder str = new StringBuilder("");
-        //findOcc(arr,2, 0);
+        // findOcc(arr,2, 0);
         // if(num == 0) str.append("zero");
         // else print(num, str);
 
         // System.out.println(str);
         // StringBuilder str1 = new StringBuilder("");
         // System.out.println(length(str1, 0, 0));
-        towerOfHanoi(3, "Source", "Helper", "Destination");
+        // towerOfHanoi(3, "Source", "Helper", "Destination");
 
     }
 }
