@@ -26,7 +26,7 @@ public class to_uppercase {
                 sb.append(Character.toUpperCase(ch));
                 capitalizeNext = false;
             } else {
-                sb.append(ch);
+                sb.append(Character.toLowerCase(ch));
             }
         }
 
