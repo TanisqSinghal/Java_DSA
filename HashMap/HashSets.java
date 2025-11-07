@@ -25,16 +25,27 @@ public class HashSets {
 
         //Linked Hashset
 
-        LinkedHashSet<String> set = new LinkedHashSet<>();
+        // LinkedHashSet<String> set = new LinkedHashSet<>();
+
+        // set.add("Delhi");
+        // set.add("Mumbai");
+        // set.add("Bengluru");
+        // set.add("Noida");
+
+        // for(String city : set) {
+        //     System.out.println(city);
+        // }
+
+        //Tree set
+
+        TreeSet<String> set = new TreeSet<>();
 
         set.add("Delhi");
         set.add("Mumbai");
         set.add("Bengluru");
-        set.add("Noida");
+        set.add("Nodia");
 
-        for(String city : set) {
-            System.out.println(city);
-        }
+        System.out.println(set);
 
     }
 }
