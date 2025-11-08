@@ -2,7 +2,7 @@ import java.util.*;
 
 public class subarray_with_sum_0 {
 
-    public static int larLenSubArrWithSum0(int arr[]) {
+    public static int larLenSubArrWithSum0(int arr[]) { //O(n)
         HashMap<Integer, Integer> map = new HashMap<>();
 
         int sum = 0;
