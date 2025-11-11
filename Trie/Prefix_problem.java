@@ -97,16 +97,32 @@ public class Prefix_problem {
         }
     }
 
+    public static boolean startsWith(String key) { //O(L)
+        Node curr = root;
+        for(int length=0; length<key.length(); length++) {
+            int idx = key.charAt(length) - 'a';
+            if(curr.children[idx] == null) {
+                return false;
+            }
+            curr = curr.children[idx];
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         String arr[] = {"zebra", "dog", "duck", "dove"};
         for(String word : arr) {
             insert(word);
         }
-        root.freq = -1;
+        // root.freq = -1;
         // for(String word : arr) {
         //     prefixProblem(word);
         //     System.out.println();
         // }
-        prefixProblem2(root, "");
+        // prefixProblem2(root, "");
+        System.out.println(startsWith("zeb"));
+        System.out.println(startsWith("do"));
+        System.out.println(startsWith("an"));
     }
 }
