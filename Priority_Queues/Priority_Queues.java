@@ -6,13 +6,15 @@ public class Priority_Queues {
         ArrayList<Integer> arr = new ArrayList<>();
 
         public void add(int data) {
-
+            // add at last index
             arr.add(data);
 
-            int x = arr.size() - 1;
-            int par = (x - 1) / 2;
-
-            while (x > 0 && arr.get(x) < arr.get(par)) {
+            int x = arr.size() - 1; // child index
+            int par = (x - 1) / 2; //parent index
+            
+            //TC of loop O(logn)
+            while (x > 0 && arr.get(x) < arr.get(par)) { // x>0 makes sure it works for adding first element, negative index should not come
+                //swap 
                 int temp = arr.get(x);
                 arr.set(x, arr.get(par));
                 arr.set(par, temp);
