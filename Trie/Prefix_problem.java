@@ -110,19 +110,42 @@ public class Prefix_problem {
         return true;
     }
 
-    public static void main(String[] args) {
-        String arr[] = {"zebra", "dog", "duck", "dove"};
-        for(String word : arr) {
-            insert(word);
+
+    public static int uniqueSubstring(Node root) {
+
+        if(root == null) {
+            return 0;
         }
+
+        int count = 0;
+        for(int i=0; i<root.children.length; i++) {
+            if(root.children[i] != null) {
+                count += uniqueSubstring(root.children[i]);
+            }
+        }
+
+        return count + 1;
+    }
+
+    public static void main(String[] args) {
+        // String arr[] = {"zebra", "dog", "duck", "dove"};
+        // for(String word : arr) {
+        //     insert(word);
+        // }
         // root.freq = -1;
         // for(String word : arr) {
         //     prefixProblem(word);
         //     System.out.println();
         // }
         // prefixProblem2(root, "");
-        System.out.println(startsWith("zeb"));
-        System.out.println(startsWith("do"));
-        System.out.println(startsWith("an"));
+        // System.out.println(startsWith("zeb"));
+        // System.out.println(startsWith("do"));
+        // System.out.println(startsWith("an"));
+        String str = "ababa";
+        for(int i=0; i<str.length(); i++) {
+            String suffix = str.substring(i);
+            insert(suffix);
+        }
+        System.out.println(uniqueSubstring(root));
     }
 }
