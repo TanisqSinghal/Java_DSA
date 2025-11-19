@@ -13,20 +13,34 @@ public class bfs_traversal {
         }
     }
 
-    public static void bfs(ArrayList<Edge>[] graph) {
+    public static void bfs(ArrayList<Edge>[] graph) { // O(V+E)
         Queue<Integer> q = new LinkedList<>();
-        boolean visited[] = new boolean[graph.length];
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+
         q.add(0);
 
         while(!q.isEmpty()) {
             int curr = q.remove();
 
-            if(!visited[curr]) {
+            if(!visited.getOrDefault(curr, false)) {
                 System.out.print(curr+" ");
-                visited[curr] = true;
+                visited.put(curr, true);
                 for(int i=0; i<graph[curr].size(); i++) {
                     q.add(graph[curr].get(i).dest);
                 }
+            }
+        }
+    }
+
+    public static void dfs(ArrayList<Edge>[] graph, int curr, boolean[] visited) {
+        // O(V+E)
+        System.out.print(curr+" ");
+        visited[curr] = true;
+
+        for(int i=0; i<graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if(!visited[e.dest]) {
+                dfs(graph, e.dest, visited);
             }
         }
     }
@@ -69,7 +83,8 @@ public class bfs_traversal {
 
         //6 vertex
         graph[6].add(new Edge(6, 5, 1));
-        bfs(graph);
+        // bfs(graph);
+        dfs(graph, 0, new boolean[graph.length]);
 
     }
 }
