@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class bfs_traversal {
+public class bfs_dfs_disconnected_graph {
     static class Edge {
         int src;
         int dest;
@@ -13,51 +13,52 @@ public class bfs_traversal {
         }
     }
 
-    public static void bfs(ArrayList<Edge>[] graph) { // O(V+E)
-        Queue<Integer> q = new LinkedList<>();
+    public static void bfs(ArrayList<Edge>[] graph) {
         HashMap<Integer, Boolean> visited = new HashMap<>();
+        for (int i = 0; i < graph.length; i++) {
+            if (!visited.getOrDefault(graph[i], false)) {
+                bfsUtil(graph, visited);
+            }
+
+        }
+    }
+
+    public static void bfsUtil(ArrayList<Edge>[] graph, HashMap<Integer, Boolean> visited) { // O(V+E)
+        Queue<Integer> q = new LinkedList<>();
 
         q.add(0);
 
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             int curr = q.remove();
 
-            if(!visited.getOrDefault(curr, false)) {
-                System.out.print(curr+" ");
+            if (!visited.getOrDefault(curr, false)) {
+                System.out.print(curr + " ");
                 visited.put(curr, true);
-                for(int i=0; i<graph[curr].size(); i++) {
+                for (int i = 0; i < graph[curr].size(); i++) {
                     q.add(graph[curr].get(i).dest);
                 }
             }
         }
     }
-
-    public static void dfs(ArrayList<Edge>[] graph, int curr, boolean[] visited) {
-        // O(V+E)
-        System.out.print(curr+" ");
-        visited[curr] = true;
-
-        for(int i=0; i<graph[curr].size(); i++) {
-            Edge e = graph[curr].get(i);
-            if(!visited[e.dest]) {
-                dfs(graph, e.dest, visited);
+    public static void dfs(ArrayList<Edge>[] graph) {
+        boolean[] visited = new boolean[graph.length];
+        for(int i=0; i<graph.length; i++) {
+            if(!visited[i]) {
+                dfsUtil(graph, i, visited);
             }
         }
     }
+    public static void dfsUtil(ArrayList<Edge>[] graph, int curr, boolean[] visited) {
+        // O(V+E)
+        System.out.print(curr + " ");
+        visited[curr] = true;
 
-    public static boolean hasPath(ArrayList<Edge>[] graph, int src, int dest, boolean visited[]) {
-        if(src == dest) {
-            return true;
-        }
-        visited[src] = true;
-        for(int i=0; i<graph[src].size(); i++) {
-            Edge e = graph[src].get(i);
-            if(!visited[e.dest] && hasPath(graph, e.dest, dest, visited)) {
-                return true;
+        for (int i = 0; i < graph[curr].size(); i++) {
+            Edge e = graph[curr].get(i);
+            if (!visited[e.dest]) {
+                dfsUtil(graph, e.dest, visited);
             }
         }
-
-        return false;
     }
 
     public static void main(String[] args) {
@@ -91,16 +92,15 @@ public class bfs_traversal {
         graph[4].add(new Edge(4, 3, 1));
         graph[4].add(new Edge(4, 5, 1));
 
-        //5 vertex
+        // 5 vertex
         graph[5].add(new Edge(5, 3, 1));
         graph[5].add(new Edge(5, 4, 1));
         graph[5].add(new Edge(5, 6, 1));
 
-        //6 vertex
+        // 6 vertex
         graph[6].add(new Edge(6, 5, 1));
         // bfs(graph);
-        // dfs(graph, 0, new boolean[graph.length]);
-        System.out.println(hasPath(graph, 0, 5, new boolean[graph.length]));
-
+        dfs(graph);
+        System.out.println();
     }
 }
