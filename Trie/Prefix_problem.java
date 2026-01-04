@@ -147,5 +147,6 @@ public class Prefix_problem {
             insert(suffix);
         }
         System.out.println(uniqueSubstring(root));
+        
     }
 }

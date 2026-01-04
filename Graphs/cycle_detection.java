@@ -52,20 +52,32 @@ public class cycle_detection {
         }
 
         graph[0].add(new Edge(0, 1, 1));
-        // graph[0].add(new Edge(0, 2, 1));
+        graph[0].add(new Edge(0, 2, 1));
         graph[0].add(new Edge(0, 3, 1));
 
         graph[1].add(new Edge(1, 0, 1));
         graph[1].add(new Edge(1, 2, 1));
         
 
-        // graph[2].add(new Edge(2, 0, 1));
+        graph[2].add(new Edge(2, 0, 1));
         graph[2].add(new Edge(2, 1, 1));
 
         graph[3].add(new Edge(3, 0, 1));
         graph[3].add(new Edge(3, 4, 1));
 
         graph[4].add(new Edge(4, 3, 1));
+        /*
+            1
+            |\
+            | \
+            |  \
+            |   2
+            |  /
+            | /
+            |/
+            0 -------- 3 -------- 4
+
+         */
 
         System.out.println(detectCycle(graph));
 
