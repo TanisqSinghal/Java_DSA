@@ -12,7 +12,7 @@ public class all_path_from_Src_to_dest {
             wt = w;
         }
     }
-    public static void printAllPath(ArrayList<Edge>[] graph, int src , int dest, String path) { // TC - O(V^V) 
+    public static void printAllPath(ArrayList<Edge>[] graph, int src , int dest, String path) { // TC - O(V^V) //exponential
         if(src == dest) {
             System.out.println(path+dest+" ");
             return;
