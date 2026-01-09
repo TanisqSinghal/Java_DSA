@@ -58,7 +58,7 @@ public class cheapest_flight_within_k_stops {
         while (!q.isEmpty()) {
             Info curr = q.remove();
             if (curr.stops > k) {
-                break;
+                continue;
             }
 
             for (int i = 0; i < graph[curr.v].size(); i++) {
