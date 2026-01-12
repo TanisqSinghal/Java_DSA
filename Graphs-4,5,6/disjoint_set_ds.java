@@ -13,7 +13,7 @@ public class disjoint_set_ds {
         if (x == par[x]) {
             return x;
         }
-        return par[x] = find(par[x]);
+        return par[x] = find(par[x]); //path compression
     }
 
     public static void union(int a, int b) {
