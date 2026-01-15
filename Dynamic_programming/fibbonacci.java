@@ -13,7 +13,7 @@ public class fibbonacci {
     }
     public static void main(String[] args) {
         int n = 5;
-        int[] f = new int[n+1];
+        int[] f = new int[n+1]; //dp array for memoization
         System.out.println(fib(n, f));
     }
 }
