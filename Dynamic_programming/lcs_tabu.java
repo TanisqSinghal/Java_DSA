@@ -29,8 +29,8 @@ public class lcs_tabu {
     }
 
     public static void main(String[] args) {
-        String str1 = "abcde";
-        String str2 = "ace";
+        String str1 = "ABCD";
+        String str2 = "ACEB";
 
         System.out.println(lcsTabulation(str1, str2));
     }
