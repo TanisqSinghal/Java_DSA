@@ -7,14 +7,14 @@ public class lcs_memo {
 
         if (dp[i][j] != -1) {
             return dp[i][j];
+        }
+        
+        if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+            dp[i][j] = lcsMemo(str1, str2, i - 1, j - 1, dp) + 1;
+            return dp[i][j];
         } else {
-            if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
-                dp[i][j] = lcsMemo(str1, str2, i - 1, j - 1, dp) + 1;
-                return dp[i][j];
-            } else {
-                dp[i][j] = Math.max(lcsMemo(str1, str2, i - 1, j, dp), lcsMemo(str1, str2, i, j - 1, dp));
-                return dp[i][j];
-            }
+            dp[i][j] = Math.max(lcsMemo(str1, str2, i - 1, j, dp), lcsMemo(str1, str2, i, j - 1, dp));
+            return dp[i][j];
         }
 
     }
