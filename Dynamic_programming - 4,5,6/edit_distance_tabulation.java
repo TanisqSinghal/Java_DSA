@@ -32,8 +32,8 @@ public class edit_distance_tabulation {
     }
 
     public static void main(String[] args) {
-        String str1 = "abc";
-        String str2 = "sbd";
+        String str1 = "intention";
+        String str2 = "execution";
 
         System.out.println(editDistanceTabu(str1, str2));
     }
