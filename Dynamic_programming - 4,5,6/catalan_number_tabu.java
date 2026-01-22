@@ -14,7 +14,7 @@ public class catalan_number_tabu {
     }
 
     public static void main(String[] args) {
-        int n = 4;
+        int n = 3;
 
         System.out.println(catalanTabu(n));
     }
