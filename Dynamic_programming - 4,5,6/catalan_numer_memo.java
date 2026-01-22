@@ -1,5 +1,5 @@
 public class catalan_numer_memo {
-    public static int catalanRec(int n, int dp[]) {
+    public static int catalanMemo(int n, int dp[]) {
         if(n == 0 || n == 1) {
             return 1;
         }
@@ -8,7 +8,7 @@ public class catalan_numer_memo {
         }
         int ans = 0;
         for(int i=0; i<=n-1; i++) {
-            ans += catalanRec(i, dp) * catalanRec(n-i-1, dp);
+            ans += catalanMemo(i, dp) * catalanMemo(n-i-1, dp);
         }
 
         return dp[n] = ans;
@@ -20,7 +20,7 @@ public class catalan_numer_memo {
         for(int i=0; i<n+1; i++){
             dp[i] = -1;
         }
-        System.out.println(catalanRec(n, dp));
+        System.out.println(catalanMemo(n, dp));
     }
 
 }
